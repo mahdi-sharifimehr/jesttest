@@ -1,0 +1,68 @@
+workflows:
+    react-native-android:
+        name: React Native Android
+        max_build_duration: 120
+        instance_type: mac_mini
+        environment:
+            vars:
+                GCLOUD_SERVICE_ACCOUNT_CREDENTIALS: Encrypted(...) # <-- Put encrypted CONTENTS of your Gloud credentials file here
+                PACKAGE_NAME: "YOUR_PACKAGE_NAME" # <-- Put your package name here e.g. com.domain.myapp
+                CM_KEYSTORE: Encrypted(...) # <-- Put your encrypted keystore file here
+                CM_KEYSTORE_PASSWORD: Encrypted(...) # <-- Put your encrypted keystore password here
+                CM_KEY_ALIAS_PASSWORD: Encrypted(...) # <-- Put your encrypted keystore alias password here
+                CM_KEY_ALIAS_USERNAME: Encrypted(...) # <-- Put your encrypted keystore alias username here 
+            node: latest
+        triggering:
+            events:
+                - push
+                - tag
+                - pull_request
+            branch_patterns:
+                - pattern: develop
+                  include: true
+                  source: true
+        scripts:
+            - name: Install npm dependencies
+              script: |
+                                npm install
+            - name: Set Android SDK location
+              script: |
+                                echo "sdk.dir=$ANDROID_SDK_ROOT" > "$FCI_BUILD_DIR/android/local.properties"
+            - name: Set up keystore
+              script: |
+                    echo $CM_KEYSTORE | base64 --decode > /tmp/keystore.keystore
+                    cat >> "$FCI_BUILD_DIR/android/key.properties" <<EOF
+                    storePassword=$CM_KEYSTORE_PASSWORD
+                    keyPassword=$CM_KEY_ALIAS_PASSWORD
+                    keyAlias=$CM_KEY_ALIAS_USERNAME
+                    storeFile=/tmp/keystore.keystore
+                    EOF                                   
+            - name: Build Android release
+              script: |
+                # Set environment variable so it can be used to increment build number in android/app/build.gradle
+                # Note that tracks can be specified when retrieving latest build number from Google Play, for example:
+                # export NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks=alpha) + 1))
+                export NEW_BUILD_NUMBER=$(($(google-play get-latest-build-number --package-name "$PACKAGE_NAME") + 1))
+                cd android && ./gradlew assembleRelease                
+        artifacts:
+            - android/app/build/outputs/**/*.apk
+        publishing:
+            # See the following link for details about email publishing - https://docs.codemagic.io/publishing-yaml/distribution/#email
+            email:
+                recipients:
+                    - user_1@example.com
+                    - user_2@example.com
+                notify:
+                  success: true     # To not receive a notification when a build succeeds
+                  failure: false    # To not receive a notification when a build fails
+            slack: 
+              # See the following link about how to connect your Slack account - https://docs.codemagic.io/publishing-yaml/distribution/#slack
+              channel: '#channel-name'
+              notify_on_build_start: true   # To receive a notification when a build starts
+              notify:
+                success: true               # To receive a notification when a build succeeds
+                failure: false              # To not receive a notification when a build fails
+            google_play:
+              # See the following link for information regarding publishing to Google Play - https://docs.codemagic.io/publishing-yaml/distribution/#google-play
+              credentials: Encrypted(...) # <-- Put your encrypted google-services.json here
+              track: alpha
