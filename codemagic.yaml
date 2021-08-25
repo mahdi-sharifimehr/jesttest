@@ -6,10 +6,10 @@ workflows:
         environment:
             vars:
                 PACKAGE_NAME: "com.mainapp" # <-- Put your package name here e.g. com.domain.myapp
-                CM_KEYSTORE: mash.keystore # <-- Put your encrypted keystore file here
-                CM_KEYSTORE_PASSWORD: 123456 # <-- Put your encrypted keystore password here
-                CM_KEY_ALIAS_PASSWORD: 123456 # <-- Put your encrypted keystore alias password here
-                CM_KEY_ALIAS_USERNAME: mash # <-- Put your encrypted keystore alias username here 
+                CM_KEYSTORE: Encrypted(Z0FBQUFBQmhKa0pmNjVGcks0SUJvOWRYZ1FaUC1qTTRTZHlZNU4yQUNBNjNTSjhQRUtMTkdsNVJ0NnU4NW9xTVVqV0RhQl9CbVdlTE4yeUxqOTg4UFd2eEtFdDUtUnhfcnc9PQ==) # <-- Put your encrypted keystore file here
+                CM_KEYSTORE_PASSWORD: Encrypted(Z0FBQUFBQmhKa0ozd3UtQ3I2QjdSeUg0eVVVUXNkb05yTWRkUG90SmdseHJOZ2tBdVBUaUVHeHdiMzFIWXhYeElsclJqdHpvd0tELTRTNU5fRUJUVGJjVkY4clU4UTNTU0E9PQ==) # <-- Put your encrypted keystore password here
+                CM_KEY_ALIAS_PASSWORD: Encrypted(Z0FBQUFBQmhKa0ozd3UtQ3I2QjdSeUg0eVVVUXNkb05yTWRkUG90SmdseHJOZ2tBdVBUaUVHeHdiMzFIWXhYeElsclJqdHpvd0tELTRTNU5fRUJUVGJjVkY4clU4UTNTU0E9PQ==) # <-- Put your encrypted keystore alias password here
+                CM_KEY_ALIAS_USERNAME: Encrypted(Z0FBQUFBQmhKa0tWVFVJbVFOSkZpaC1XS3B3cjdGLW1BbFhKR0N4N21ObzRoaVNhaXFlQmtraVZHN2Y4djVSX0k0Vk5QMHV0Z2xVbEhjeTNMdDZxU2taUHJUN2g1dkdzUUE9PQ==) # <-- Put your encrypted keystore alias username here 
             node: latest
         scripts:
             - name: Install npm dependencies
