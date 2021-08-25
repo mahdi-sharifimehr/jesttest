@@ -1,57 +1,36 @@
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Home from './screens/Home';
-import Login from './screens/Login';
-import Map from './screens/Map';
-import Camera from './screens/Camera';
-import { Provider } from 'react-redux';
-import { Store } from './redux/store';
-
-const Stack = createStackNavigator();
-
-function App() {
-  return (
-    <Provider store={Store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            headerTitleAlign: 'center',
-            headerStyle: {
-              backgroundColor: '#0080ff'
-            },
-            headerTintColor: '#ffffff',
-            headerTitleStyle: {
-              fontSize: 25,
-              fontWeight: 'bold'
-            }
-          }}
-        >
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-          />
-          <Stack.Screen
-            name="Map"
-            component={Map}
-          />
-          <Stack.Screen
-            name="Camera"
-            component={Camera}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  )
+class App extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Welcome to React Native!!!!</Text>
+        <Text style={styles.instructions}>
+          This is a React Native snapshot test.
+        </Text>
+      </View>
+    );
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  instructions: {
+    color: '#333333',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+  welcome: {
+    fontSize: 20,
+    margin: 10,
+    textAlign: 'center',
+  },
+});
 
 export default App;

@@ -1,11 +1,10 @@
-// __tests__/Intro-test.js
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Intro from '../src/utils/Intro';
+import App from '../src/App';
 import { FlatList, Text } from 'react-native';
 
 test('renders correctly', () => {
-    const tree = renderer.create(<Intro />).toJSON();
+    const tree = renderer.create(<App />).toJSON();
     expect(tree).toMatchSnapshot();
 });
 
