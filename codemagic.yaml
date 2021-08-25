@@ -11,15 +11,6 @@ workflows:
                 CM_KEY_ALIAS_PASSWORD: 123456 # <-- Put your encrypted keystore alias password here
                 CM_KEY_ALIAS_USERNAME: mash # <-- Put your encrypted keystore alias username here 
             node: latest
-        # triggering:
-        #     events:
-        #         - push
-        #         - tag
-        #         - pull_request
-        #     branch_patterns:
-        #         - pattern: develop
-        #           include: true
-        #           source: true
         scripts:
             - name: Install npm dependencies
               script: |
@@ -35,7 +26,9 @@ workflows:
                     keyPassword=$CM_KEY_ALIAS_PASSWORD
                     keyAlias=$CM_KEY_ALIAS_USERNAME
                     storeFile=/tmp/keystore.keystore
-                    EOF                                   
+                    EOF   
+            # - name: Tests                       # Insert before the build command
+            #   script: npm test                                
             - name: Build Android release
               script: |
                 # Set environment variable so it can be used to increment build number in android/app/build.gradle
