@@ -154,7 +154,7 @@ android {
         }
         release {
             if (System.getenv()['CI']) { // CI=true is exported by Codemagic
-                storeFile file(System.getenv()['FCI_BUILD_DIR'] + '/mash.jks')
+                storeFile file(System.getenv()['FCI_BUILD_DIR'] + '/keystore.jks')
                 storePassword System.getenv()['CM_KEYSTORE_PASSWORD']
                 keyAlias System.getenv()['CM_KEY_ALIAS_USERNAME']
                 keyPassword System.getenv()['CM_KEYSTORE_PASSWORD']
