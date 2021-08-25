@@ -27,8 +27,8 @@ workflows:
                     keyAlias=$CM_KEY_ALIAS_USERNAME
                     storeFile=/tmp/keystore.keystore
                     EOF   
-            # - name: Tests                       # Insert before the build command
-            #   script: npm test                                
+            - name: Tests                       # Insert before the build command
+              script: npm test                                
             - name: Build Android release
               script: |
                 # Set environment variable so it can be used to increment build number in android/app/build.gradle
