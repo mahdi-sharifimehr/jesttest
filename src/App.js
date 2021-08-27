@@ -5,9 +5,9 @@ class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!!!!</Text>
+        <Text style={styles.welcome}>Testing React native with Jest</Text>
         <Text style={styles.instructions}>
-          This is a React Native snapshot test.
+          This is a React Native test.
         </Text>
       </View>
     );
